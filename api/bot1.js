@@ -11,5 +11,5 @@ module.exports = async (req, res) => {
   if(text.startsWith('/start')) await send(`🔥 Barrio Guardian ACTIVO\nTu ID: ${msg.from.id}`);
   else if(text.startsWith('/id')) await send(`Tu ID: ${msg.from.id} @${msg.from.username||''}`);
   else await send(`Guardian recibio: ${text}`);
-  return res.status(200).send('OK');
-};
+   res.status(200).send('OK');
+}
