@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><style>
+@font-face {
+  font-family: "Optimistic";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Optimistic Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
+}
+:where(html) {
+  font-family: "Optimistic", system-ui, sans-serif;
+}
+:where(code, pre, kbd, samp) {
+  font-family: "Optimistic Mono", ui-monospace, monospace;
+}
+</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>EL BARRIO DEL PATRON - Oficial</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;}
+body{background:#080808;color:#e5e5e5;min-height:100vh;display:flex;justify-content:center;padding:0;}
+.wrap{width:100%;max-width:400px;background:#080808;min-height:100vh;padding:20px 18px 30px;position:relative;}
+.wrap::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background: radial-gradient(ellipse at top, #151515 0%, #080808 60%);pointer-events:none;z-index:-1;}
+.header{text-align:center;padding:18px 0 14px;border-bottom:1px solid #1e1e1e;margin-bottom:18px;}
+.diamond{width:48px;height:48px;background: linear-gradient(145deg, #f5f5f5, #a0a0a0);margin:0 auto 10px;clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow: 0 0 20px rgba(255,255,255,0.15);}
+.title{font-size:22px;font-weight:900;letter-spacing:1.5px;color:#f5f5f5;line-height:1.1;}
+.sub{font-size:10px;letter-spacing:2px;color:#666;margin-top:6px;font-weight:600;}
+.badge{display:inline-block;background:#1a1a1a;border:1px solid #2a2a2a;color:#8b1a1a;font-size:9px;padding:3px 8px;border-radius:20px;margin-top:8px;letter-spacing:1px;font-weight:700;}
+.main-cta{display:block;width:100%;background:#8b1a1a;border:1px solid #a01e1e;color:#fff;padding:16px;border-radius:10px;font-weight:800;font-size:14px;letter-spacing:1px;text-align:center;text-decoration:none;margin:18px 0 14px;box-shadow:0 4px 12px rgba(139,26,26,0.3);}
+.main-cta span{display:block;font-size:10px;font-weight:400;opacity:0.8;margin-top:3px;letter-spacing:0.5px;}
+.section-title{font-size:11px;letter-spacing:2px;color:#666;font-weight:700;margin:22px 0 10px;}
+.games{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.game{background:#121212;border:1px solid #232323;border-radius:10px;padding:12px 10px;text-align:left;}
+.game-icon{font-size:18px;margin-bottom:6px;}
+.game-name{font-size:11px;font-weight:800;color:#e5e5e5;letter-spacing:0.5px;}
+.game-desc{font-size:9px;color:#666;margin-top:3px;line-height:1.2;}
+.bonos{display:flex;gap:8px;margin-top:10px;}
+.bono{flex:1;background:#121212;border:1px solid #232323;border-radius:8px;padding:10px;text-align:center;}
+.bono b{display:block;font-size:10px;color:#e5e5e5;}
+.bono span{font-size:8px;color:#666;display:block;margin-top:2px;}
+.links{display:flex;flex-direction:column;gap:8px;margin-top:14px;}
+.link-btn{display:flex;align-items:center;justify-content:space-between;background:#121212;border:1px solid #2a2a2a;border-radius:10px;padding:13px 14px;text-decoration:none;color:#e5e5e5;font-size:12px;font-weight:600;letter-spacing:0.5px;}
+.link-btn small{color:#666;font-size:10px;font-weight:400;}
+.link-btn .arrow{color:#444;}
+.rules{background:#0f0f0f;border:1px solid #1e1e1e;border-radius:10px;padding:14px;margin-top:18px;}
+.rules-title{font-size:11px;font-weight:800;letter-spacing:1.5px;color:#f5f5f5;margin-bottom:10px;}
+.rules ol{list-style:none;counter-reset:rule;}
+.rules li{counter-increment:rule;display:flex;gap:10px;font-size:11px;color:#999;line-height:1.4;margin-bottom:8px;}
+.rules li::before{content:counter(rule, decimal-leading-zero);font-size:9px;color:#8b1a1a;font-weight:800;min-width:20px;}
+.rules li b{color:#ccc;}
+.bot-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px;}
+.bot-btn{background:#161616;border:1px solid #2a2a2a;border-radius:8px;padding:10px;text-align:center;text-decoration:none;color:#ccc;font-size:10px;font-weight:600;}
+.bot-btn:active{background:#1e1e1e;}
+.footer{text-align:center;margin-top:24px;padding-top:16px;border-top:1px solid #151515;}
+.footer p{font-size:9px;color:#444;letter-spacing:0.5px;line-height:1.4;}
+.dot{width:6px;height:6px;background:#0f0;border-radius:50%;display:inline-block;margin-right:4px;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <div class="diamond">💎</div>
+    <div class="title">EL BARRIO<br>DEL PATRON</div>
+    <div class="sub">JEFATURA OFICIAL • AFUN MEXICO</div>
+    <div class="badge"><span class="dot"></span>CH:430500 ACTIVO</div>
+  </div>
+
+  <a href="https://afun.mx/?ch=430500" class="main-cta" id="afunBtn">
+    ENTRAR AL BARRIO
+    <span>Registro limpio - Codigo invitacion VACIO</span>
+  </a>
+
+  <div class="section-title">JUEGOS DEL BARRIO</div>
+  <div class="games">
+    <div class="game"><div class="game-icon">🎰</div><div class="game-name">SLOTS</div><div class="game-desc">Jackpots & tragamonedas</div></div>
+    <div class="game"><div class="game-icon">♠️</div><div class="game-name">CASINO VIVO</div><div class="game-desc">Blackjack en vivo</div></div>
+    <div class="game"><div class="game-icon">🎲</div><div class="game-name">RULETA</div><div class="game-desc">Europea & Americana</div></div>
+    <div class="game"><div class="game-icon">🏀</div><div class="game-name">APUESTAS</div><div class="game-desc">Fut, Box, NBA</div></div>
+    <div class="game"><div class="game-icon">💣</div><div class="game-name">CRASH</div><div class="game-desc">Aviator & Mines</div></div>
+    <div class="game"><div class="game-icon">🃏</div><div class="game-name">POKER</div><div class="game-desc">Texas & 21</div></div>
+  </div>
+
+  <div class="bonos">
+    <div class="bono"><b>100%</b><span>Bono Bienvenida</span></div>
+    <div class="bono"><b>GIROS</b><span>Del Patron</span></div>
+    <div class="bono"><b>24H</b><span>Retiro Rapido</span></div>
+  </div>
+
+  <div class="section-title">CANALES OFICIALES</div>
+  <div class="links">
+    <a href="https://t.me/VitrinaDelPatronReal" class="link-btn"><span>👁️ VITRINA DEL PATRON <small>• Giros & pruebas</small></span><span class="arrow">→</span></a>
+    <a href="https://t.me/ElBarriodelPatron" class="link-btn"><span>🏚️ GRUPO OFICIAL <small>• Barrio del Patron</small></span><span class="arrow">→</span></a>
+  </div>
+
+  <div class="section-title">BOTONES VINCULADOS A BOTS</div>
+  <div class="bot-actions">
+    <a href="https://t.me/ElBarriodelPatron" class="bot-btn" onclick="sendToBot('registro')">📝 /registro</a>
+    <a href="https://t.me/ElBarriodelPatron" class="bot-btn" onclick="sendToBot('verificar')">🔍 /verificar</a>
+    <a href="https://t.me/ElBarriodelPatron" class="bot-btn" onclick="sendToBot('vitrina')">💎 /vitrina</a>
+    <a href="https://t.me/ElBarriodelPatron" class="bot-btn" onclick="sendToBot('ayuda')">🆘 /ayuda</a>
+  </div>
+
+  <div class="rules">
+    <div class="rules-title">REGLAS DEL BARRIO</div>
+    <ol>
+      <li><span><b>Respeto ante todo</b> - Sin excepcion en el Barrio</span></li>
+      <li><span><b>Registro limpio</b> - En Codigo invitacion deja <b>VACIO</b>. Si pones algo no apareces en panel ch=430500</span></li>
+      <li><span><b>Verifica antes de recargar</b> - Pon <b>/verificar TU_ID</b> en el grupo y espera confirmacion del Patron antes de recargar 100</span></li>
+    </ol>
+  </div>
+
+  <div class="footer">
+    <p>@ElPatron1538 • Jefe del Barrio<br>AFUN Mexico | Desde el barrio pa'l mundo<br><br>API: barrio-bots-final-2.vercel.app</p>
+  </div>
+</div>
+
+<script>
+const tg = window.Telegram?.WebApp; if(tg){ tg.ready(); tg.expand(); }
+function sendToBot(cmd){
+  if(tg){
+    try{ tg.openTelegramLink('https://t.me/ElBarriodelPatron'); }catch(e){}
+  }
+}
+document.getElementById('afunBtn').addEventListener('click', function(){
+  if(tg){ try{ tg.HapticFeedback?.impactOccurred('medium'); }catch(e){} }
+});
+</script>
+<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body>
+    </html>
+    
