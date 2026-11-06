@@ -1,55 +1,55 @@
-// api/check.js - Verifica si usuario está en El Barrio del Patron (automatico)
+let RANKING = global.RANKING || (global.RANKING = [
+  {name:"ElPatron1538", username:"elpatron1538", points:1250, games:45, profit:750},
+  {name:"LaFlaka", username:"laflaka", points:980, games:32, profit:480},
+  {name:"ElChuy", username:"elchuy", points:850, games:28, profit:350},
+  {name:"ElRayo", username:"elrayo", points:620, games:20, profit:120},
+  {name:"LaBanda", username:"labanda", points:540, games:18, profit:40}
+]);
+
 module.exports = async (req,res) => {
   res.setHeader('Access-Control-Allow-Origin','*');
   res.setHeader('Access-Control-Allow-Methods','GET,POST,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers','Content-Type');
   if(req.method==='OPTIONS') return res.status(200).send('OK');
-
-  let body = req.body;
-  if(!body && req.method==='POST'){
+  
+  let body=req.body;
+  if(!body && req.method==='POST'){ 
+    try{ 
+      const chunks=[]; 
+      for await (const chunk of req) chunks.push(chunk); 
+      // Note: in Vercel body is already parsed, this fallback for raw
+    }catch(e){} 
     try{
       const c=[]; for await (const x of req) c.push(x);
       if(c.length) body=JSON.parse(Buffer.concat(c).toString());
     }catch(e){}
   }
   if(typeof body==='string'){ try{ body=JSON.parse(body);}catch(e){} }
-  if(!body && req.query && req.query.user_id) body = req.query;
-
-  const userId = body?.user_id || body?.userId || req.query?.user_id;
-  const username = body?.username || req.query?.username;
-
-  if(!userId){
-    return res.status(200).json({in_group:false, reason:"no user_id", automatic:true});
+  
+  // Vercel may have already parsed body
+  if(!body && req.body && typeof req.body === 'object') body = req.body;
+  
+  if(req.method==='GET'){
+    const sorted = [...RANKING].sort((a,b)=>b.points-a.points).slice(0,20);
+    return res.status(200).json({ranking:sorted, total:RANKING.length, live:true, timestamp:Date.now()});
   }
-
-  // CONFIGURA AQUI TU GRUPO - Cambia por tu @ o ID de grupo
-  const GROUP_CHAT_ID = process.env.BARRIO_GROUP_ID || "@ElBarriodelPatron"; // o pon tu ID numerico ej: -1001234567890
-  const GUARDIAN_TOKEN = process.env.BARRIO_GUARDIAN_TOKEN;
-
-  if(!GUARDIAN_TOKEN){
-    // Si no hay token, permite por ahora pero marca como no verificado
-    return res.status(200).json({in_group:true, verified:false, reason:"no token config", automatic:true});
-  }
-
-  try{
-    const resp = await fetch(`https://api.telegram.org/bot${GUARDIAN_TOKEN}/getChatMember?chat_id=${GROUP_CHAT_ID}&user_id=${userId}`);
-    const data = await resp.json();
-    if(!data.ok){
-      // Grupo no encontrado o bot no es admin, permite pero marca
-      return res.status(200).json({in_group:true, verified:false, reason:data.description, automatic:true});
+  if(req.method==='POST' && body){
+    const {username, name, points, delta, games} = body;
+    if(!username) return res.status(400).json({error:"no username"});
+    let user = RANKING.find(u=>u.username===username.toLowerCase());
+    if(!user){
+      user = {name:name||username, username:username.toLowerCase(), points:500, games:0, profit:0};
+      RANKING.push(user);
     }
-    const status = data.result?.status; // creator, administrator, member, restricted, left, kicked
-    const inGroup = ["creator","administrator","member","restricted"].includes(status);
-    return res.status(200).json({
-      in_group: inGroup,
-      status: status,
-      username: username,
-      user_id: userId,
-      automatic: true,
-      timestamp: Date.now()
-    });
-  }catch(e){
-    return res.status(200).json({in_group:true, verified:false, error:e.message, automatic:true});
+    if(typeof points==='number') user.points = points;
+    if(typeof delta==='number') user.points += delta;
+    if(typeof games==='number') user.games = (user.games||0)+games;
+    if(user.points<0) user.points=0;
+    user.profit = user.points-500;
+    if(name) user.name=name;
+    global.RANKING = RANKING;
+    return res.status(200).json({ok:true, user, ranking:RANKING.sort((a,b)=>b.points-a.points).slice(0,20), live:true});
   }
+  return res.status(200).send('OK');
 };
-      
+  
